@@ -39,7 +39,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: package-lock.json
     - run: npm ci
-    - run: npm run build
+    - run: npm run build -- --base-href https://derhorst.github.io/fretted/
     - run: |
         mv dist/fretted/browser/ _site
     - name: Upload artifact
