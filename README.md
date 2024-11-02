@@ -1,5 +1,10 @@
 # Fretted
+Fretted helps you learn the fretboard. 
+Play the note and string displayed on the top of the page. The app monitors your microphone and detects if you play the correct note.
+You can play it at:
+https://derhorst.github.io/fretted/
 
+# Development
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
 ## Development server

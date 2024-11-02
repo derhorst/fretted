@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface SettingsInterface {
   maxFrets: number;
   onlyFullNotes: boolean;
+  accuracy: number;
 }
 
 @Injectable({

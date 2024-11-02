@@ -20,14 +20,15 @@ export class SettingsComponent {
   
   settingsForm = this.formBuilder.group({ 
     onlyFullNotes: [this.settings.onlyFullNotes ?? false, Validators.required],
-    maxFrets: [this.settings.maxFrets ?? 11, Validators.required] 
-  },
-  );
+    maxFrets: [this.settings.maxFrets ?? 11, Validators.required],
+    accuracy: [this.settings.accuracy ?? 5, Validators.required],
+  });
 
   saveSettigns() {
     this.settingsService.saveSettings({
       maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? 11,
-      onlyFullNotes: (this.settingsForm.controls['onlyFullNotes'].getRawValue()) ?? false
+      onlyFullNotes: (this.settingsForm.controls['onlyFullNotes'].getRawValue()) ?? false,
+      accuracy: (this.settingsForm.controls['accuracy'].getRawValue()) ?? 5,
     });
     this.router.navigate(['/'])
   }

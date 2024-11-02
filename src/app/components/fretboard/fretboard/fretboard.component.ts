@@ -19,10 +19,10 @@ export class FretboardComponent {
   settings = this.settingsService.getSettings()
   maxFrets = this.settings.maxFrets || 11;
   onlyFullNotes = this.settings.onlyFullNotes || false;
+  accuracy = this.settings.accuracy || 5;
 
 
   showNotes = false;
-  threshold = 5;
 
   stringNames = stringArray
 
@@ -46,7 +46,7 @@ export class FretboardComponent {
       this.time += 100;
       this.played = pitch;
       const search = this.searched()
-      if (search && Math.abs(pitch - search.frequency) < this.threshold) {
+      if (search && Math.abs(pitch - search.frequency) < this.accuracy) {
         console.log('HIT!', search, pitch)
         this.guessed++;
         this.setFound();
