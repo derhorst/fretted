@@ -31,6 +31,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - shell: bash
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -39,7 +40,9 @@ jobs:
         cache: 'npm'
         cache-dependency-path: package-lock.json
     - run: npm ci
-    - run: npm run build -- --output-path=_site
+    - run: npm run build
+    - run: |
+        mv dist/fretted/browser/ _site
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
   # Deployment job
