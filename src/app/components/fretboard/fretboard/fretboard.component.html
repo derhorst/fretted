@@ -1,6 +1,8 @@
-<a [routerLink]="['/settings']" class="settings-button">
-    ⚙
-</a>
+@if(!searched()) {
+    <a [routerLink]="['/settings']" class="settings-button">
+        ⚙
+    </a>
+}
 <div class="toolbar">
     @if(searched(); as search) {
   
