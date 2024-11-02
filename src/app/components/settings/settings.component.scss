@@ -17,5 +17,10 @@ form {
     button {
         margin-top: 2rem;
         width: 100%;
+        background-color: #69b87a;
+        color: white;
+        border: 0;
+        border-radius: 4px;
+        filter: drop-shadow(4px 3px 2px gray);
     }
 }
