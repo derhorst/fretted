@@ -42,6 +42,7 @@ jobs:
     - run: npm run build -- --base-href https://derhorst.github.io/fretted/
     - run: |
         mv dist/fretted/browser/ _site
+        mv src/404.html _site/
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
   # Deployment job
