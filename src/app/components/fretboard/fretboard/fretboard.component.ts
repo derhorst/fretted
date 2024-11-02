@@ -83,7 +83,7 @@ export class FretboardComponent {
     const searchArray = Object.values(notesOnStringsAndFrets).flat()
       .filter(note => note.fret <= this.maxFrets)
       .filter(note => this.onlyFullNotes ? note.note.length < 2 : !!note)
-    const note = searchArray[this.randomIntFromInterval(0, searchArray.length)];
+    const note = searchArray[this.randomIntFromInterval(0, searchArray.length-1)];
     console.log('find', note)
     return note;
   }
