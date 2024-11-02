@@ -31,7 +31,9 @@
     }
 }
 
-.fretboard {
+
+
+.fretboard {    
     display: flex;
     justify-content: center;
     table {
@@ -141,4 +143,10 @@
     position: absolute;
     bottom: 0;
     color: gray;
+}
+
+@media only screen and (max-width: 950px) {
+    .fretboard {
+        transform: scale(0.5);
+    }
 }
