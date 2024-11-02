@@ -1,0 +1,48 @@
+
+
+
+<div class="toolbar">
+
+  @if(search) {
+
+    <div class="guessed">{{guessed}}</div>
+    <div class="search">
+      <h1>{{searchNote?.note}} <br> {{searchOnString}}</h1>
+    </div>
+    <div class="time">
+      Avg. time: 
+      @if (guessed) {
+        <span class="seconds">{{((time / 1000) / guessed) | number : '1.0-0' }}  s</span>
+      }
+    </div>
+
+  } @else {
+    <div (click)="showNotes = !showNotes">show notes</div>
+    <div class="start-button" (click)="start()">Start</div>
+    <div></div>
+  }
+</div>
+
+<div class="fretboard">
+  <table>
+    @for(string of stringNames; let row = $index; track string) {
+      <tr>
+        @for(note of notes[string] | slice : 0 : maxFrets + 1; let column = $index; track note) {
+          <td [class.active]="searched()?.stringNumber === row">
+            <div class="cell" [class.dot]="getDots(row, column)">
+              <span class="string" [class]="'string-' + (row+1)" [class.active]="searched()?.stringNumber === row"></span>
+              <div class="note" [attr.data-string]="row" [attr.data-fret]="column" [class.active]="showNotes || found()?.stringNumber === row && found()?.fretNumber === column">{{note.note[0]}}</div>
+            </div>
+           
+          </td>
+      }
+      </tr>
+    }
+  </table>
+</div>
+
+<div class="played-frequency">
+  @if(search) {
+    {{search.frequency}} - {{played}}
+  }
+</div>
