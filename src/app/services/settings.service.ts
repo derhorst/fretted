@@ -4,6 +4,7 @@ export interface SettingsInterface {
   maxFrets: number;
   onlyFullNotes: boolean;
   accuracy: number;
+  debug: boolean;
 }
 
 @Injectable({

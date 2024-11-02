@@ -1,6 +1,6 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 import { SlicePipe } from '../../../pipes/slice.pipe';
 import { PitchDetectorService } from '../../../services/pitch-detector.service';
 import { notesOnStringsAndFrets, NotesOnStringsAndFretsInterface, stringArray } from '../../../configs/notes';
@@ -8,7 +8,7 @@ import { SettingsService } from '../../../services/settings.service';
 @Component({
   selector: 'app-fretboard',
   standalone: true,
-  imports: [RouterOutlet, SlicePipe, DecimalPipe, RouterLink],
+  imports: [RouterOutlet, SlicePipe, DecimalPipe, RouterLink, JsonPipe],
   templateUrl: './fretboard.component.html',
   styleUrl: './fretboard.component.scss'
 })
@@ -20,6 +20,7 @@ export class FretboardComponent {
   maxFrets = this.settings.maxFrets || 11;
   onlyFullNotes = this.settings.onlyFullNotes || false;
   accuracy = this.settings.accuracy || 5;
+  debug = this.settings.debug || false;
 
 
   showNotes = false;

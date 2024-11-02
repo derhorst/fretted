@@ -48,8 +48,9 @@
   </div>
   
   <div class="played-frequency">
-    @if(searched(); as search) {
-      {{search.frequency}} - {{played}}
+    @if(debug && searched(); as search) {
+        {{search | json }} <br>
+        Played {{played}}
     }
   </div>
   

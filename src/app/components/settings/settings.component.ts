@@ -22,6 +22,7 @@ export class SettingsComponent {
     onlyFullNotes: [this.settings.onlyFullNotes ?? false, Validators.required],
     maxFrets: [this.settings.maxFrets ?? 11, Validators.required],
     accuracy: [this.settings.accuracy ?? 5, Validators.required],
+    debug: [this.settings.debug ?? false, Validators.required],
   });
 
   saveSettigns() {
@@ -29,6 +30,7 @@ export class SettingsComponent {
       maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? 11,
       onlyFullNotes: (this.settingsForm.controls['onlyFullNotes'].getRawValue()) ?? false,
       accuracy: (this.settingsForm.controls['accuracy'].getRawValue()) ?? 5,
+      debug: (this.settingsForm.controls['debug'].getRawValue()) ?? false,
     });
     this.router.navigate(['/'])
   }
