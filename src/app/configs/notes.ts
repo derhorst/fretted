@@ -918,11 +918,20 @@ export const notes: { [key in strings]:  NoteInterface[]} = {
       ]
 }
 
+export const notesOnStringsAndFrets: { [key in strings]:  Array<NotesOnStringsAndFretsInterface>} = {
+  e: notes.e.map((note, index) => ({...note, string: 1, fret: index})),
+  B: notes.B.map((note, index) => ({...note, string: 2, fret: index})),
+  G: notes.G.map((note, index) => ({...note, string: 3, fret: index})),
+  D: notes.D.map((note, index) => ({...note, string: 4, fret: index})),
+  A: notes.A.map((note, index) => ({...note, string: 5, fret: index})),
+  E: notes.E.map((note, index) => ({...note, string: 6, fret: index})),
+}
+
 export const stringArray: Array<strings> = [
     'e', 'B', 'G', 'D', 'A', 'E'
 ]
 
 export type strings = 'e' | 'B' | 'G' | 'D' | 'A' | 'E';// export const notes = [
 
-    
+ export type NotesOnStringsAndFretsInterface = NoteInterface & {string: number, fret: number};
    

@@ -1,0 +1,53 @@
+<a [routerLink]="['/settings']" class="settings-button">
+    ⚙
+</a>
+<div class="toolbar">
+    @if(searched(); as search) {
+  
+      <div class="guessed">{{guessed}}</div>
+      <div class="search">
+        <h1>{{search.note}} <br> {{search.string}} 
+        
+          @if(search.fret > 11) {
+            <span class="grey">12+</span> 
+          }
+        </h1>
+      </div>
+      <div class="time">
+        Avg. time: 
+        @if (guessed) {
+          <span class="seconds">{{((time / 1000) / guessed) | number : '1.0-0' }}  s</span>
+        }
+      </div>
+  
+    } @else {
+      <div (click)="showNotes = !showNotes">show notes</div>
+      <div class="start-button" (click)="start()">Start</div>
+      <div></div>
+    }
+  </div>
+  
+  <div class="fretboard">
+    <table>
+      @for(string of stringNames; let row = $index; track string) {
+        <tr>
+          @for(note of notes[string] | slice : 0 : maxFrets + 1; let column = $index; track note) {
+            <td [class.active]="searched()?.string">
+              <div class="cell" [class.dot]="getDots(row, column)">
+                <span class="string" [class]="'string-' + (row+1)" [class.active]="getActiveString(row+1, column)"></span>
+                <div class="note" [attr.data-string]="row" [attr.data-fret]="column" [class.active]="showNotes || found()?.string === row + 1 && found()?.fret === column">{{note.note[0]}}</div>
+              </div>
+             
+            </td>
+        }
+        </tr>
+      }
+    </table>
+  </div>
+  
+  <div class="played-frequency">
+    @if(searched(); as search) {
+      {{search.frequency}} - {{played}}
+    }
+  </div>
+  
