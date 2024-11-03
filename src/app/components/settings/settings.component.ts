@@ -19,7 +19,7 @@ export class SettingsComponent {
   settings = this.settingsService.getSettings()
   
   settingsForm = this.formBuilder.group({ 
-    onlyFullNotes: [this.settings.onlyFullNotes ?? false, Validators.required],
+    onlyNaturalNotes: [this.settings.onlyNaturalNotes ?? false, Validators.required],
     maxFrets: [this.settings.maxFrets ?? 11, Validators.required],
     timer: [this.settings.timer ?? 5, Validators.required],
     accuracy: [this.settings.accuracy ?? 5, Validators.required],
@@ -29,7 +29,7 @@ export class SettingsComponent {
   saveSettigns() {
     this.settingsService.saveSettings({
       maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? 11,
-      onlyFullNotes: (this.settingsForm.controls['onlyFullNotes'].getRawValue()) ?? false,
+      onlyNaturalNotes: (this.settingsForm.controls['onlyNaturalNotes'].getRawValue()) ?? false,
       timer: (this.settingsForm.controls['timer'].getRawValue()) ?? 4,
       accuracy: (this.settingsForm.controls['accuracy'].getRawValue()) ?? 5,
       debug: (this.settingsForm.controls['debug'].getRawValue()) ?? false,

@@ -19,7 +19,7 @@ export class FretboardComponent {
 
   settings = this.settingsService.getSettings()
   maxFrets = this.settings.maxFrets || 11;
-  onlyFullNotes = this.settings.onlyFullNotes || false;
+  onlyNaturalNotes = this.settings.onlyNaturalNotes || false;
   accuracy = this.settings.accuracy || 5;
   debug = this.settings.debug || false;
   timer = this.settings.timer || 5;
@@ -90,7 +90,7 @@ export class FretboardComponent {
   private getRandom() {
     const searchArray = Object.values(notesOnStringsAndFrets).flat()
       .filter(note => note.fret <= this.maxFrets)
-      .filter(note => this.onlyFullNotes ? note.note.length < 2 : !!note)
+      .filter(note => this.onlyNaturalNotes ? note.note.length < 2 : !!note)
     const note = searchArray[this.randomIntFromInterval(0, searchArray.length-1)];
     console.log('find', note)
     return note;

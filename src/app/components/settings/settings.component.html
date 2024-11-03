@@ -1,12 +1,12 @@
 <h1>Settings</h1>
 <form [formGroup]="settingsForm" (ngSubmit)="saveSettigns()">  
     <div class="group">
-        <label for="max-frets">Max Frets: </label>  
+        <label for="max-frets">Number of frets: </label>  
         <input id="max-frets" type="text" formControlName="maxFrets">  
     </div>
     <div class="group">
-        <label for="only-full-notes">Show only full notes: </label>  
-        <input id="only-full-notes" type="checkbox" formControlName="onlyFullNotes">  
+        <label for="only-natural-notes">Only natural notes</label>  
+        <input id="only-natural-notes" type="checkbox" formControlName="onlyNaturalNotes">  
     </div>
     <div class="group">
         <label for="timer">Time limit (min): </label>  
