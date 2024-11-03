@@ -14,7 +14,17 @@
     </div>
 
     <div class="group">
-        <label for="accuracy">Accuracy (+/- Hz): </label>  
+        <label for="from-string">From String (1-6)</label>  
+        <input id="from-string" type="text" formControlName="fromString">  
+    </div>
+    
+    <div class="group">
+        <label for="to-string">To String (1-6)</label>  
+        <input id="to-string" type="text" formControlName="toString">  
+    </div>
+
+    <div class="group">
+        <label for="accuracy" title="Increase this value if your notes aren't detected correctly (can cause false positive detection)">Accuracy (+/- Hz): ❓</label>  
         <input id="accuracy" type="text" formControlName="accuracy">  
     </div>
 
@@ -22,5 +32,13 @@
         <label for="debug">Show debug: </label>  
         <input id="debug" type="checkbox" formControlName="debug">  
     </div>
-    <button type="submit">Done</button>
+    @if(errorMessage) {
+        <div class="error">
+            {{errorMessage}}
+        </div>
+    }
+    <button class="clickable" type="submit">Done</button>
+
+    <button class="clickable grey" type="button" (click)="resetSettings()">Reset Settings</button>
+
 </form>

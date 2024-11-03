@@ -6,6 +6,7 @@
 }
 
 form {
+    min-width: 20rem;
     margin-top: 2rem;
     .group {
         margin-top: 1rem;
@@ -22,5 +23,38 @@ form {
         border: 0;
         border-radius: 4px;
         filter: drop-shadow(4px 3px 2px gray);
+
+        &.grey {
+            background-color: lightgray;
+            color: black;
+        }
+    }
+
+
+    .ng-invalid {
+        border-color: lightcoral;
+    }
+
+    .error {
+        background-color: lightcoral;
+        color: white;
+        padding: 1rem;
+        margin-top: 1rem;
     }
 }
+
+@media (pointer: coarse), (hover: none) {
+    [title] {
+      position: relative;
+    }
+    [title]:focus::after {
+      content: attr(title);
+      position: absolute;
+      top: 90%;
+      color: #000;
+      background-color: #fff;
+      border: 1px solid;
+      width: fit-content;
+      padding: 3px;
+    }
+  }

@@ -5,7 +5,19 @@ export interface SettingsInterface {
   onlyNaturalNotes: boolean;
   timer: number;
   accuracy: number;
+  fromStringNo: number;
+  toStringNo: number;
   debug: boolean;
+}
+
+export const defaultSettings: SettingsInterface = {
+  maxFrets: 11,
+  onlyNaturalNotes: false,
+  timer: 5,
+  accuracy: 2,
+  fromStringNo: 1,
+  toStringNo: 6,
+  debug: false
 }
 
 @Injectable({
@@ -13,13 +25,15 @@ export interface SettingsInterface {
 })
 export class SettingsService {
 
-  getSettings(): Partial<SettingsInterface> {
-    return JSON.parse(localStorage.getItem('settings') ?? '{}')
+  getSettings(): SettingsInterface {
+    return {...defaultSettings, ...JSON.parse(localStorage.getItem('settings') ?? '{}')}
   }
 
   saveSettings(settings: Partial<SettingsInterface>) {
     localStorage.setItem('settings', JSON.stringify({...this.getSettings(), ...settings}))
   }
 
-
+  resetSettings() {
+    localStorage.removeItem('settings')
+  }
 }

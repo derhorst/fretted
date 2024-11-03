@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettingsService } from '../../services/settings.service';
+import { defaultSettings, SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,28 +12,44 @@ import { SettingsService } from '../../services/settings.service';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
+
   private settingsService = inject(SettingsService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
 
+  errorMessage = '';
+
   settings = this.settingsService.getSettings()
   
   settingsForm = this.formBuilder.group({ 
-    onlyNaturalNotes: [this.settings.onlyNaturalNotes ?? false, Validators.required],
-    maxFrets: [this.settings.maxFrets ?? 11, Validators.required],
-    timer: [this.settings.timer ?? 5, Validators.required],
-    accuracy: [this.settings.accuracy ?? 5, Validators.required],
-    debug: [this.settings.debug ?? false, Validators.required],
-  });
+    onlyNaturalNotes: [this.settings.onlyNaturalNotes ?? defaultSettings.onlyNaturalNotes, Validators.required],
+    maxFrets: [this.settings.maxFrets ?? defaultSettings.maxFrets, Validators.required],
+    timer: [this.settings.timer ?? defaultSettings.timer, Validators.required],
+    fromString: [this.settings.fromStringNo ?? defaultSettings.fromStringNo, Validators.required],
+    toString: [this.settings.toStringNo ?? defaultSettings.toStringNo, Validators.required],
+    accuracy: [this.settings.accuracy ?? defaultSettings.accuracy, Validators.required],
+    debug: [this.settings.debug ?? defaultSettings.debug, Validators.required],
+  },  {updateOn: 'blur'});
 
   saveSettigns() {
-    this.settingsService.saveSettings({
-      maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? 11,
-      onlyNaturalNotes: (this.settingsForm.controls['onlyNaturalNotes'].getRawValue()) ?? false,
-      timer: (this.settingsForm.controls['timer'].getRawValue()) ?? 4,
-      accuracy: (this.settingsForm.controls['accuracy'].getRawValue()) ?? 5,
-      debug: (this.settingsForm.controls['debug'].getRawValue()) ?? false,
-    });
+    if (this.settingsForm.valid) {
+      this.settingsService.saveSettings({
+        maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? defaultSettings.maxFrets,
+        onlyNaturalNotes: (this.settingsForm.controls['onlyNaturalNotes'].getRawValue()) ?? defaultSettings.onlyNaturalNotes,
+        timer: Number(this.settingsForm.controls['timer'].getRawValue()) ?? defaultSettings.timer,
+        accuracy: Number(this.settingsForm.controls['accuracy'].getRawValue()) ?? defaultSettings.accuracy,
+        fromStringNo: Number(this.settingsForm.controls['fromString'].getRawValue()) ?? defaultSettings.fromStringNo,
+        toStringNo: Number(this.settingsForm.controls['toString'].getRawValue()) ?? defaultSettings.toStringNo,
+        debug: (this.settingsForm.controls['debug'].getRawValue()) ?? defaultSettings.debug,
+      });
+      this.router.navigate(['/'])
+    } else {
+      this.errorMessage = 'Correct the marked fields';
+    }
+  }
+
+  resetSettings() {
+    this.settingsService.resetSettings();
     this.router.navigate(['/'])
   }
 }

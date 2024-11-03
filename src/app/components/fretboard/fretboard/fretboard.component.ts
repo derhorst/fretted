@@ -18,11 +18,13 @@ export class FretboardComponent {
   settingsService = inject(SettingsService)
 
   settings = this.settingsService.getSettings()
-  maxFrets = this.settings.maxFrets || 11;
-  onlyNaturalNotes = this.settings.onlyNaturalNotes || false;
-  accuracy = this.settings.accuracy || 5;
-  debug = this.settings.debug || false;
-  timer = this.settings.timer || 5;
+  maxFrets = this.settings.maxFrets ;
+  onlyNaturalNotes = this.settings.onlyNaturalNotes;
+  accuracy = this.settings.accuracy;
+  fromStringNo = this.settings.fromStringNo;
+  toStringNo = this.settings.toStringNo;
+  debug = this.settings.debug;
+  timer = this.settings.timer;
 
 
   showNotes = false;
@@ -91,6 +93,11 @@ export class FretboardComponent {
     const searchArray = Object.values(notesOnStringsAndFrets).flat()
       .filter(note => note.fret <= this.maxFrets)
       .filter(note => this.onlyNaturalNotes ? note.note.length < 2 : !!note)
+      .filter(note => note.string >= this.fromStringNo)
+      .filter(note => {
+        console.log( note.string, this.toStringNo,  note.string <= this.toStringNo)
+        return note.string <= this.toStringNo
+      })
     const note = searchArray[this.randomIntFromInterval(0, searchArray.length-1)];
     console.log('find', note)
     return note;

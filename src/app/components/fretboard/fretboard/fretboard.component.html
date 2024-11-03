@@ -19,8 +19,8 @@
       </div>
   
     } @else {
-      <div (click)="showNotes = !showNotes">Toggle notes</div>
-      <div class="start-button" (click)="start()">Start</div>
+      <div (click)="showNotes = !showNotes" class="clickable">Toggle notes</div>
+      <div class="clickable start-button" (click)="start()">Start</div>
       <div>
        Time: {{timer}} min
         <br>
@@ -52,7 +52,7 @@
   <div class="played-frequency">
     @if(debug && searched(); as search) {
         {{search | json }} <br>
-        Played {{played}}
+        Played frequency {{played}}
     }
   </div>
   
