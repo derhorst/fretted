@@ -5,6 +5,7 @@ import { SlicePipe } from '../../../pipes/slice.pipe';
 import { PitchDetectorService } from '../../../services/pitch-detector.service';
 import { notesOnStringsAndFrets, NotesOnStringsAndFretsInterface, stringArray } from '../../../configs/notes';
 import { SettingsService } from '../../../services/settings.service';
+import { takeUntil, timer } from 'rxjs';
 @Component({
   selector: 'app-fretboard',
   standalone: true,
@@ -21,6 +22,7 @@ export class FretboardComponent {
   onlyFullNotes = this.settings.onlyFullNotes || false;
   accuracy = this.settings.accuracy || 5;
   debug = this.settings.debug || false;
+  timer = this.settings.timer || 5;
 
 
   showNotes = false;
@@ -29,33 +31,39 @@ export class FretboardComponent {
 
   played?: number;
 
-  time: number = 0
-  guessed: number = 0;
+  correct: number = 0;
 
   notes = notesOnStringsAndFrets;
 
   searched: WritableSignal<NotesOnStringsAndFretsInterface | null> = signal(null)
   found: WritableSignal<NotesOnStringsAndFretsInterface | null> = signal(null);
   
+  score = 0
+  currentScore = 0;
 
   start() {
     this.showNotes = false;
     this.searched.set(this.getRandom());
+    this.correct = 0;
     this.pritchDetectorService.start()
 
-    this.pritchDetectorService.pitch.subscribe((pitch) => {
-      this.time += 100;
+    this.pritchDetectorService.pitch.pipe(takeUntil(timer(this.timer * 60 * 1000))).subscribe(
+      {next: (pitch) => {
       this.played = pitch;
       const search = this.searched()
       if (search && Math.abs(pitch - search.frequency) < this.accuracy) {
         console.log('HIT!', search, pitch)
-        this.guessed++;
+        this.correct++;
         this.setFound();
         this.searched.set(this.getRandom());
       } else if (pitch > 10) {
         console.log('try again ', pitch, this.searched())
       } 
-    })
+    },
+    complete: () => {
+      this.searched.set(null);
+    }
+  })
   }
 
 

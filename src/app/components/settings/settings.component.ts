@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
-import { SettingsService } from '../../services/settings.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +21,7 @@ export class SettingsComponent {
   settingsForm = this.formBuilder.group({ 
     onlyFullNotes: [this.settings.onlyFullNotes ?? false, Validators.required],
     maxFrets: [this.settings.maxFrets ?? 11, Validators.required],
+    timer: [this.settings.timer ?? 5, Validators.required],
     accuracy: [this.settings.accuracy ?? 5, Validators.required],
     debug: [this.settings.debug ?? false, Validators.required],
   });
@@ -29,6 +30,7 @@ export class SettingsComponent {
     this.settingsService.saveSettings({
       maxFrets: Number(this.settingsForm.controls['maxFrets'].getRawValue()) ?? 11,
       onlyFullNotes: (this.settingsForm.controls['onlyFullNotes'].getRawValue()) ?? false,
+      timer: (this.settingsForm.controls['timer'].getRawValue()) ?? 4,
       accuracy: (this.settingsForm.controls['accuracy'].getRawValue()) ?? 5,
       debug: (this.settingsForm.controls['debug'].getRawValue()) ?? false,
     });

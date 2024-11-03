@@ -6,7 +6,7 @@
 <div class="toolbar">
     @if(searched(); as search) {
   
-      <div class="guessed">{{guessed}}</div>
+      <div class="correct">{{correct}}</div>
       <div class="search">
         <h1>{{search.note}} <br> {{search.string}} 
         
@@ -15,17 +15,19 @@
           }
         </h1>
       </div>
-      <div class="time">
-        Avg. time: 
-        @if (guessed) {
-          <span class="seconds">{{((time / 1000) / guessed) | number : '1.0-0' }}  s</span>
-        }
+      <div >
       </div>
   
     } @else {
       <div (click)="showNotes = !showNotes">show notes</div>
       <div class="start-button" (click)="start()">Start</div>
-      <div></div>
+      <div>
+       Time: {{timer}} min
+        <br>
+        @if (correct) {
+        Correct: {{( correct) | number : '1.0-0' }}
+        }
+      </div>
     }
   </div>
   
