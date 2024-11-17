@@ -51,6 +51,28 @@
   </div>
 
   @if(!searched()) {
+    @if(highscores()?.length && highscores(); as highscores) {
+      <div class="highscores">
+      <h1>Highscores</h1>
+
+        <table>
+        <tr>
+          <th>Place</th>
+          <th>Correct notes played</th>
+          <th>Time</th>
+        </tr>
+        @for(highscore of highscores; let index = $index; track highscore) {
+          <tr>
+            <td>{{index + 1}}</td>
+            <td>{{highscore.correct}}</td>
+            <td>{{highscore.time}} min</td>
+          </tr>
+        }
+        </table>
+
+      </div>
+    }
+   
     <div class="info">
       <h1>How to play</h1>
       <p>Play the note and string displayed on the top of the page. <br> The app monitors your microphone and detects if you play the correct note.</p>

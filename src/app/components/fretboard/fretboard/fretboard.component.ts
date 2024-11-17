@@ -6,8 +6,9 @@ import { SlicePipe } from '../../../pipes/slice.pipe';
 import { PitchDetectorService } from '../../../services/pitch-detector.service';
 import { notesOnStringsAndFrets, NotesOnStringsAndFretsInterface, stringArray } from '../../../configs/notes';
 import { SettingsService } from '../../../services/settings.service';
-import { interval, map, Observable, reduce, takeUntil, tap, timer } from 'rxjs';
+import { interval, map, Observable, takeUntil, tap, timer } from 'rxjs';
 import { SoundService } from '../../../services/sound.service';
+import { HighscoreService } from '../../../services/highscore.service';
 @Component({
   selector: 'app-fretboard',
   standalone: true,
@@ -19,6 +20,7 @@ export class FretboardComponent {
   pritchDetectorService = inject(PitchDetectorService);
   settingsService = inject(SettingsService)
   soundService = inject(SoundService)
+  highscoreService = inject(HighscoreService)
 
   settings = this.settingsService.getSettings()
   maxFrets = this.settings.maxFrets ;
@@ -47,6 +49,8 @@ export class FretboardComponent {
   score = 0
   currentScore = 0;
 
+  highscores = toSignal(this.highscoreService.highscores$.pipe(map((highscores) => highscores)))
+
   start() {
     this.showNotes = false;
     this.searched.set(this.getRandom());
@@ -70,6 +74,7 @@ export class FretboardComponent {
     },
     complete: () => {
       this.searched.set(null);
+      this.highscoreService.saveHighscore(this.correct, this.timer)
     }
   })
   }

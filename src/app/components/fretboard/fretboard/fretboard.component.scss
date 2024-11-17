@@ -154,9 +154,18 @@
     }
 }
 
-.info {
+.info,.highscores {
     margin: 10rem auto;
     max-width: 50rem;
+}
+
+.highscores {
+    table {
+        th {
+            text-align: left;
+        }
+        width: 100%;
+    }
 }
 
 .played-frequency {
