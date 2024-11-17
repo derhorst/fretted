@@ -28,6 +28,7 @@ export class SettingsComponent {
     fromString: [this.settings.fromStringNo ?? defaultSettings.fromStringNo, Validators.required],
     toString: [this.settings.toStringNo ?? defaultSettings.toStringNo, Validators.required],
     accuracy: [this.settings.accuracy ?? defaultSettings.accuracy, Validators.required],
+    playSounds: [this.settings.playSounds ?? defaultSettings.playSounds, Validators.required],
     debug: [this.settings.debug ?? defaultSettings.debug, Validators.required],
   },  {updateOn: 'blur'});
 
@@ -40,6 +41,7 @@ export class SettingsComponent {
         accuracy: Number(this.settingsForm.controls['accuracy'].getRawValue()) ?? defaultSettings.accuracy,
         fromStringNo: Number(this.settingsForm.controls['fromString'].getRawValue()) ?? defaultSettings.fromStringNo,
         toStringNo: Number(this.settingsForm.controls['toString'].getRawValue()) ?? defaultSettings.toStringNo,
+        playSounds: (this.settingsForm.controls['playSounds'].getRawValue()) ?? defaultSettings.playSounds,
         debug: (this.settingsForm.controls['debug'].getRawValue()) ?? defaultSettings.debug,
       });
       this.router.navigate(['/'])

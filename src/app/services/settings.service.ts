@@ -7,6 +7,7 @@ export interface SettingsInterface {
   accuracy: number;
   fromStringNo: number;
   toStringNo: number;
+  playSounds: boolean;
   debug: boolean;
 }
 
@@ -17,6 +18,7 @@ export const defaultSettings: SettingsInterface = {
   accuracy: 2,
   fromStringNo: 1,
   toStringNo: 6,
+  playSounds: true,
   debug: false
 }
 

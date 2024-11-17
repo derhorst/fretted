@@ -49,6 +49,14 @@
       }
     </table>
   </div>
+
+  @if(!searched()) {
+    <div class="info">
+      <h1>How to play</h1>
+      <p>Play the note and string displayed on the top of the page. <br> The app monitors your microphone and detects if you play the correct note.</p>
+    </div>
+  }
+
   
   <div class="played-frequency">
     @if(debug && searched(); as search) {
