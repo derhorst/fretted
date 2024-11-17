@@ -1,21 +1,24 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { DecimalPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, DatePipe, DecimalPipe, JsonPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { SlicePipe } from '../../../pipes/slice.pipe';
 import { PitchDetectorService } from '../../../services/pitch-detector.service';
 import { notesOnStringsAndFrets, NotesOnStringsAndFretsInterface, stringArray } from '../../../configs/notes';
 import { SettingsService } from '../../../services/settings.service';
-import { takeUntil, timer } from 'rxjs';
+import { interval, map, Observable, reduce, takeUntil, tap, timer } from 'rxjs';
+import { SoundService } from '../../../services/sound.service';
 @Component({
   selector: 'app-fretboard',
   standalone: true,
-  imports: [RouterOutlet, SlicePipe, DecimalPipe, RouterLink, JsonPipe],
+  imports: [RouterOutlet, SlicePipe, DecimalPipe, RouterLink, JsonPipe, AsyncPipe, DatePipe],
   templateUrl: './fretboard.component.html',
   styleUrl: './fretboard.component.scss'
 })
 export class FretboardComponent {
   pritchDetectorService = inject(PitchDetectorService);
   settingsService = inject(SettingsService)
+  soundService = inject(SoundService)
 
   settings = this.settingsService.getSettings()
   maxFrets = this.settings.maxFrets ;
@@ -26,6 +29,7 @@ export class FretboardComponent {
   debug = this.settings.debug;
   timer = this.settings.timer;
 
+  timeElapsed$?: Observable<number>;
 
   showNotes = false;
 
@@ -48,6 +52,8 @@ export class FretboardComponent {
     this.searched.set(this.getRandom());
     this.correct = 0;
     this.pritchDetectorService.start()
+
+    this.timeElapsed$ = interval(1000).pipe(map(time => time + 1),takeUntil(timer(this.timer * 60 * 1000)))
 
     this.pritchDetectorService.pitch.pipe(takeUntil(timer(this.timer * 60 * 1000))).subscribe(
       {next: (pitch) => {
@@ -83,10 +89,11 @@ export class FretboardComponent {
   }
   
   private setFound() {
+    this.soundService.playSuccess();
     this.found.set(this.searched());
     setTimeout(() => {
       this.found.set(null);
-    }, 4000)
+    }, 500)
   }
 
   private getRandom() {

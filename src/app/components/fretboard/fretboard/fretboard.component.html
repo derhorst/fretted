@@ -16,6 +16,7 @@
         </h1>
       </div>
       <div >
+        {{((timeElapsed$ | async) ?? 0) * 1000 | date:'mm:ss' }}
       </div>
   
     } @else {
