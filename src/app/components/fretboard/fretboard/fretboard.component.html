@@ -1,6 +1,6 @@
 @if(!searched()) {
     <a [routerLink]="['/settings']" class="settings-button">
-        ⚙
+      🔧
     </a>
 }
 <div class="toolbar">
@@ -62,7 +62,7 @@
           <th>Time</th>
         </tr>
         @for(highscore of highscores; let index = $index; track highscore) {
-          <tr>
+          <tr [class.latest]="highscore.date === lastPlayed">
             <td>{{index + 1}}</td>
             <td>{{highscore.correct}}</td>
             <td>{{highscore.time}} min</td>

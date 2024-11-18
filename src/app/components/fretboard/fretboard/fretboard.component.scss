@@ -161,6 +161,9 @@
 
 .highscores {
     table {
+        .latest {
+            font-weight: bold;
+        }
         th {
             text-align: left;
         }
