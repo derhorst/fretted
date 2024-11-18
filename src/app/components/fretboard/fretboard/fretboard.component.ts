@@ -44,7 +44,7 @@ export class FretboardComponent {
 
   notes = notesOnStringsAndFrets;
 
-  searched: WritableSignal<NotesOnStringsAndFretsInterface | null> = signal(null)
+  searched: WritableSignal<NotesOnStringsAndFretsInterface & {displayNote: string} | null> = signal(null)
   found: WritableSignal<NotesOnStringsAndFretsInterface | null> = signal(null);
   
   lastPlayed?: string;
@@ -114,7 +114,7 @@ export class FretboardComponent {
       .filter(note => Math.abs(note.frequency - (this.searched()?.frequency ?? 0)) > 5)
     const note = searchArray[this.randomIntFromInterval(0, searchArray.length-1)];
     console.log('find', note)
-    return note;
+    return {...note, displayNote: note.note[this.randomIntFromInterval(1, note.note.length) - 1]};
   }
 
 
