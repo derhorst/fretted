@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { defaultSettings, SettingsService } from '../../services/settings.service';
+import { HighscoreService } from '../../services/highscore.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,8 +13,8 @@ import { defaultSettings, SettingsService } from '../../services/settings.servic
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
-
   private settingsService = inject(SettingsService);
+  private highScoresService = inject(HighscoreService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
 
@@ -51,7 +52,16 @@ export class SettingsComponent {
   }
 
   resetSettings() {
-    this.settingsService.resetSettings();
-    this.router.navigate(['/'])
+    if (confirm("Do you really want to reset your settings?") == true) {
+      this.settingsService.resetSettings();
+      this.router.navigate(['/'])
+    }
+  }
+
+  resetHighscores() {
+    if (confirm("Do you really want to reset your highscores?") == true) {
+      this.highScoresService.resetHighscores()
+      this.router.navigate(['/'])
+    }
   }
 }

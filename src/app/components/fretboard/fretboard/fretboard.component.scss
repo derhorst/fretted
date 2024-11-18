@@ -60,7 +60,7 @@
     
         td {
         
-    
+            
             .cell.dot:after {
                 content: '•';
                 font-size: 4rem;
@@ -161,7 +161,9 @@
 
 .highscores {
     table {
+        border-collapse: collapse;
         .latest {
+            background-color: #69b87a46;
             font-weight: bold;
         }
         th {

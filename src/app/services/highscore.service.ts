@@ -23,8 +23,9 @@ export class HighscoreService {
     return JSON.parse(localStorage.getItem('highscores') ?? '[]')
   }
 
-  resetSettings() {
+  resetHighscores() {
     localStorage.removeItem('highscores')
+    this.highscores$.next(this.getHighscores())
   }
 
   highscores$ = new BehaviorSubject<HighscoreInterface[]>(this.getHighscores())
