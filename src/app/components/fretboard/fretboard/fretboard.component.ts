@@ -79,7 +79,7 @@ export class FretboardComponent {
       this.searched.set(null);
       const date = new Date();
       this.lastPlayed = date.toJSON();
-      this.highscoreService.saveHighscore(this.correct, this.timer, date)
+      this.highscoreService.saveHighscore(this.correct, this.settings, date)
     }
   })
   }

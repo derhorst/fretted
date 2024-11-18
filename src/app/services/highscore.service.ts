@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { SettingsInterface } from './settings.service';
 
 
 export interface HighscoreInterface {
   correct: number;
-  time: number;
+  settings: SettingsInterface;
   date: string;
 }
 
@@ -14,12 +15,12 @@ export interface HighscoreInterface {
 export class HighscoreService {
   
 
-  saveHighscore(correct: number, time: number, date: Date) {
-    localStorage.setItem('highscores', JSON.stringify([...this.getHighscores(), {correct, time, date}].sort((a,b) =>  (b.correct / b.time) - (a.correct / a.time) ).slice(0, 10)))
+  saveHighscore(correct: number, settings: SettingsInterface, date: Date) {
+    localStorage.setItem('highscores', JSON.stringify([...this.getHighscores(), {correct, date, settings}].sort((a,b) =>  (b.correct / b.settings.timer) - (a.correct / a.settings.timer) ).slice(0, 10)))
     this.highscores$.next(this.getHighscores())
   }
 
-  getHighscores(): any {
+  getHighscores(): HighscoreInterface[] {
     return JSON.parse(localStorage.getItem('highscores') ?? '[]')
   }
 
