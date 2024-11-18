@@ -111,6 +111,7 @@ export class FretboardComponent {
       .filter(note => this.onlyNaturalNotes ? note.note.length < 2 : !!note)
       .filter(note => note.string >= this.fromStringNo)
       .filter(note => note.string <= this.toStringNo)
+      .filter(note => Math.abs(note.frequency - (this.searched()?.frequency ?? 0)) > 5)
     const note = searchArray[this.randomIntFromInterval(0, searchArray.length-1)];
     console.log('find', note)
     return note;

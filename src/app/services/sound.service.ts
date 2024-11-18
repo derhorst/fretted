@@ -16,7 +16,8 @@ export class SoundService {
 
   playSuccess() { 
     if (this.playSounds) {
-      this.successSound.play()
+      const node = (this.successSound.cloneNode() as HTMLAudioElement);
+      node.play().finally(() => node.remove())
     }
   };
 

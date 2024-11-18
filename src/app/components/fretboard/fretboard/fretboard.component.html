@@ -58,14 +58,18 @@
         <table>
         <tr>
           <th>Place</th>
-          <th>Correct notes played</th>
+          <th>Notes</th>
+          <th>Notes/Minute</th>
+          <th>Strings (Frets)</th>
           <th>Time</th>
         </tr>
         @for(highscore of highscores; let index = $index; track highscore) {
           <tr [class.latest]="highscore.date === lastPlayed">
             <td>{{index + 1}}</td>
             <td>{{highscore.correct}}</td>
-            <td>{{highscore.settings.timer}} min</td>
+            <td>{{ (1/highscore.settings.timer) * highscore.correct}}</td>
+            <td>{{highscore.settings.fromStringNo}} - {{highscore.settings.toStringNo}} ({{highscore.settings.maxFrets}})</td>
+            <td>{{highscore.settings.timer}}&nbsp;min</td>
           </tr>
         }
         </table>
