@@ -1,7 +1,7 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, DestroyRef, inject, signal, WritableSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, DatePipe, DecimalPipe, JsonPipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { SlicePipe } from '../../../pipes/slice.pipe';
 import { PitchDetectorService } from '../../../services/pitch-detector.service';
 import { notesOnStringsAndFrets, NotesOnStringsAndFretsInterface, stringArray } from '../../../configs/notes';
@@ -21,7 +21,8 @@ export class FretboardComponent {
   settingsService = inject(SettingsService)
   soundService = inject(SoundService)
   highscoreService = inject(HighscoreService)
-
+  destroyRef = inject(DestroyRef)
+  
   settings = this.settingsService.getSettings()
   maxFrets = this.settings.maxFrets ;
   onlyNaturalNotes = this.settings.onlyNaturalNotes;
@@ -59,9 +60,9 @@ export class FretboardComponent {
     this.correct = 0;
     this.pritchDetectorService.start()
 
-    this.timeElapsed$ = interval(1000).pipe(map(time => time + 1),takeUntil(timer(this.timer * 60 * 1000)))
+    this.timeElapsed$ = interval(1000).pipe(map(time => time + 1),takeUntil(timer(this.timer * 60 * 1000)), takeUntilDestroyed(this.destroyRef))
 
-    this.pritchDetectorService.pitch.pipe(takeUntil(timer(this.timer * 60 * 1000))).subscribe(
+    this.pritchDetectorService.pitch.pipe(takeUntil(timer(this.timer * 60 * 1000)), takeUntilDestroyed(this.destroyRef)).subscribe(
       {next: (pitch) => {
       this.played = pitch;
       const search = this.searched()
