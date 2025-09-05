@@ -25,7 +25,7 @@ export class PitchDetectorService {
     });
   }
 
-  updatePitch(analyserNode: AnalyserNode, detector: PitchDetector<Float32Array>, input: Float32Array, sampleRate: number) {
+  updatePitch(analyserNode: AnalyserNode, detector: PitchDetector<Float32Array>, input: Float32Array<ArrayBuffer>, sampleRate: number) {
     analyserNode.getFloatTimeDomainData(input);
     const [pitch, clarity] = detector.findPitch(input, sampleRate);
     if (clarity > 0.75) {

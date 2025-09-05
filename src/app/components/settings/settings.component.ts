@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { HighscoreService } from '../../services/highscore.service';
 
 @Component({
     selector: 'app-settings',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './settings.component.html',
     styleUrl: './settings.component.scss'
 })
