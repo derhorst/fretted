@@ -6,11 +6,10 @@ import { defaultSettings, SettingsService } from '../../services/settings.servic
 import { HighscoreService } from '../../services/highscore.service';
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [CommonModule,  ReactiveFormsModule],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+    selector: 'app-settings',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './settings.component.html',
+    styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
   private settingsService = inject(SettingsService);

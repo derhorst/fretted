@@ -10,11 +10,10 @@ import { interval, map, Observable, takeUntil, timer } from 'rxjs';
 import { SoundService } from '../../../services/sound.service';
 import { HighscoreService } from '../../../services/highscore.service';
 @Component({
-  selector: 'app-fretboard',
-  standalone: true,
-  imports: [SlicePipe, DecimalPipe, RouterLink, JsonPipe, AsyncPipe, DatePipe],
-  templateUrl: './fretboard.component.html',
-  styleUrl: './fretboard.component.scss'
+    selector: 'app-fretboard',
+    imports: [SlicePipe, DecimalPipe, RouterLink, JsonPipe, AsyncPipe, DatePipe],
+    templateUrl: './fretboard.component.html',
+    styleUrl: './fretboard.component.scss',
 })
 export class FretboardComponent {
   pritchDetectorService = inject(PitchDetectorService);
